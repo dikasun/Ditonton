@@ -68,7 +68,7 @@ void main() {
 
     test('should return Movie Detail Table when data is found', () async {
       // arrange
-      when(mockDatabaseHelper.getMovieById(tId))
+      when(mockDatabaseHelper.getItemById(tId, 1))
           .thenAnswer((_) async => testMovieMap);
       // act
       final result = await dataSource.getMovieById(tId);
@@ -78,7 +78,7 @@ void main() {
 
     test('should return null when data is not found', () async {
       // arrange
-      when(mockDatabaseHelper.getMovieById(tId)).thenAnswer((_) async => null);
+      when(mockDatabaseHelper.getItemById(tId, 1)).thenAnswer((_) async => null);
       // act
       final result = await dataSource.getMovieById(tId);
       // assert
@@ -87,7 +87,7 @@ void main() {
   });
 
   group('get watchlist movies', () {
-    test('should return list of MovieTable from database', () async {
+    test('should return list of WatchlistTable from database', () async {
       // arrange
       when(mockDatabaseHelper.getWatchlistMovies())
           .thenAnswer((_) async => [testMovieMap]);

@@ -1,0 +1,103 @@
+{
+  "adult": false,
+  "backdrop_path": "/path.jpg",
+  "created_by": [
+    {
+      "id": 1,
+      "credit_id": "credit_id",
+      "name": "name",
+      "gender": 1,
+      "profile_path": "/path.jpg"
+    }
+  ],
+  "episode_run_time": [],
+  "first_air_date": "first_air_date",
+  "genres": [
+    {
+      "id": 1,
+      "name": "name"
+    },
+    {
+      "id": 2,
+      "name": "name"
+    }
+  ],
+  "homepage": "https://google.com",
+  "id": 1,
+  "in_production": false,
+  "languages": [
+    "en"
+  ],
+  "last_air_date": "last_air_date",
+  "last_episode_to_air": {
+    "id": 1,
+    "name": "name",
+    "overview": "overview",
+    "vote_average": 1,
+    "vote_count": 1,
+    "air_date": "air_date",
+    "episode_number": 1,
+    "production_code": "production_code",
+    "runtime": 1,
+    "season_number": 1,
+    "show_id": 1,
+    "still_path": "/path.jpg"
+  },
+  "name": "name",
+  "next_episode_to_air": null,
+  "networks": [
+    {
+      "id": 1,
+      "logo_path": "/path.png",
+      "name": "name",
+      "origin_country": "US"
+    }
+  ],
+  "number_of_episodes": 1,
+  "number_of_seasons": 1,
+  "origin_country": [
+    "US"
+  ],
+  "original_language": "en",
+  "original_name": "original_name",
+  "overview": "overview",
+  "popularity": 1,
+  "poster_path": "/path.jpg",
+  "production_companies": [
+    {
+      "id": 1,
+      "logo_path": "/path.png",
+      "name": "name",
+      "origin_country": "US"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "seasons": [
+    {
+      "air_date": "air_date",
+      "episode_count": 1,
+      "id": 1,
+      "name": "name",
+      "overview": "overview",
+      "poster_path": "/path.jpg",
+      "season_number": 1
+    }
+  ],
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "status",
+  "tagline": "tagline",
+  "type": "type",
+  "vote_average": 1.0,
+  "vote_count": 1
+}
