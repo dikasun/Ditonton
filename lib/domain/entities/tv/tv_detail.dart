@@ -39,7 +39,7 @@ class TVDetail extends Equatable {
   });
 
   final bool adult;
-  final String backdropPath;
+  final String? backdropPath;
   final List<CreatedBy> createdBy;
   final List<int> episodeRunTime;
   final String firstAirDate;
@@ -218,12 +218,12 @@ class ProductionCountry extends Equatable {
 }
 
 class Season extends Equatable {
-  final String airDate;
+  final String? airDate;
   final int episodeCount;
   final int id;
   final String name;
   final String overview;
-  final String posterPath;
+  final String? posterPath;
   final int seasonNumber;
 
   Season({
