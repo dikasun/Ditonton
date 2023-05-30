@@ -1,4 +1,4 @@
-# CI
+# Continuous Integration
 
 [![Codemagic build status](https://api.codemagic.io/apps/6474460eabbed9af0af42581/6474460eabbed9af0af42580/status_badge.svg)](https://codemagic.io/apps/6474460eabbed9af0af42581/6474460eabbed9af0af42580/latest_build)
 
