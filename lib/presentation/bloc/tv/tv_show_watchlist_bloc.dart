@@ -13,6 +13,8 @@ class TVShowWatchlistBloc extends Bloc<TVShowEvent, TVShowState> {
   final SaveTVShowWatchlist _saveTVShowWatchlist;
   final RemoveTVShowWatchlist _removeTVShowWatchlist;
 
+  bool watchlistStatus = false;
+
   TVShowWatchlistBloc(
     this._getWatchlistTVShows,
     this._getTVShowWatchListStatus,
@@ -38,6 +40,7 @@ class TVShowWatchlistBloc extends Bloc<TVShowEvent, TVShowState> {
 
     on<TVShowGetWatchlistStatusEvent>((event, emit) async {
       final result = await _getTVShowWatchListStatus.execute(event.tvShowId);
+      watchlistStatus = result;
       emit(TVShowWatchlistStatusState(status: result));
     });
 

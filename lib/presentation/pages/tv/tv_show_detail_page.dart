@@ -40,20 +40,38 @@ class TVShowDetailPageState extends State<TVShowDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<TVShowDetailBloc, TVShowState>(
-        builder: (context, state) {
-          if (state is TVShowLoadingState) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is TVShowHasDataState) {
-            return SafeArea(
-              child: DetailContent(state.result),
-            );
-          } else {
-            return Text(state.toString());
+      body: BlocListener<TVShowWatchlistBloc, TVShowState>(
+        listener: (context, state) {
+          if (state is TVShowSuccessState) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.result)));
+            BlocProvider.of<TVShowWatchlistBloc>(context)
+                .add(TVShowGetWatchlistStatusEvent(tvShowId: widget.id));
+          } else if (state is TVShowErrorState) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Text(state.message),
+                  );
+                });
           }
         },
+        child: BlocBuilder<TVShowDetailBloc, TVShowState>(
+          builder: (context, state) {
+            if (state is TVShowLoadingState) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is TVShowHasDataState) {
+              return SafeArea(
+                child: DetailContent(state.result),
+              );
+            } else {
+              return Text(state.toString());
+            }
+          },
+        ),
       ),
     );
   }
@@ -104,54 +122,35 @@ class DetailContent extends StatelessWidget {
                               tvShow.name,
                               style: kHeading5,
                             ),
-                            BlocConsumer<TVShowWatchlistBloc, TVShowState>(
-                              listener: (context, state) {
-                                if (state is TVShowSuccessState) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(state.result)));
-                                } else if (state is TVShowErrorState) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(state.message),
-                                        );
-                                      });
-                                }
-                                BlocProvider.of<TVShowWatchlistBloc>(context)
-                                    .add(TVShowGetWatchlistStatusEvent(
-                                        tvShowId: tvShow.id));
-                              },
-                              builder: (context, state) {
-                                if (state is TVShowWatchlistStatusState) {
-                                  return ElevatedButton(
-                                    onPressed: () async {
-                                      if (!state.status) {
-                                        BlocProvider.of<TVShowWatchlistBloc>(
-                                                context)
-                                            .add(TVShowAddWatchlistEvent(
-                                                tvShow: tvShow));
-                                      } else {
-                                        BlocProvider.of<TVShowWatchlistBloc>(
-                                                context)
-                                            .add(TVShowRemoveWatchlistEvent(
-                                                tvShow: tvShow));
-                                      }
-                                    },
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        state.status
-                                            ? Icon(Icons.check)
-                                            : Icon(Icons.add),
-                                        Text('Watchlist'),
-                                      ],
-                                    ),
-                                  );
+                            ElevatedButton(
+                              onPressed: () async {
+                                if (!BlocProvider.of<TVShowWatchlistBloc>(
+                                        context)
+                                    .watchlistStatus) {
+                                  BlocProvider.of<TVShowWatchlistBloc>(context)
+                                      .add(TVShowAddWatchlistEvent(
+                                          tvShow: tvShow));
                                 } else {
-                                  return Text('Failed');
+                                  BlocProvider.of<TVShowWatchlistBloc>(context)
+                                      .add(TVShowRemoveWatchlistEvent(
+                                          tvShow: tvShow));
                                 }
                               },
+                              child:
+                                  BlocBuilder<TVShowWatchlistBloc, TVShowState>(
+                                builder: (context, state) {
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      state is TVShowWatchlistStatusState &&
+                                              state.status
+                                          ? Icon(Icons.check)
+                                          : Icon(Icons.add),
+                                      Text('Watchlist'),
+                                    ],
+                                  );
+                                },
+                              ),
                             ),
                             Text(
                               _showGenres(tvShow.genres),

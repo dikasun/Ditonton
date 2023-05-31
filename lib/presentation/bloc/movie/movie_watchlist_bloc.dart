@@ -13,6 +13,8 @@ class MovieWatchlistBloc extends Bloc<MovieEvent, MovieState> {
   final SaveMovieWatchlist _saveMovieWatchlist;
   final RemoveMovieWatchlist _removeMovieWatchlist;
 
+  bool watchlistStatus = false;
+
   MovieWatchlistBloc(
     this._getWatchlistMovies,
     this._getMovieWatchListStatus,
@@ -38,6 +40,7 @@ class MovieWatchlistBloc extends Bloc<MovieEvent, MovieState> {
 
     on<MovieGetWatchlistStatusEvent>((event, emit) async {
       final result = await _getMovieWatchListStatus.execute(event.movieId);
+      watchlistStatus = result;
       emit(MovieWatchlistStatusState(status: result));
     });
 
